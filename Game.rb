@@ -11,20 +11,24 @@ class Game
   def play
     secret = @player_maker.make_code
     @board.secret_code = secret
-    puts "Secret Code #{@board.secret_code}"
 
 
-    loop do
-      puts @player_won
+    2.times do
       if @player_won
-        puts "Congratulations"
         return
       end
       guess = @player_breaker.make_code
       @board.guesses << guess
-      puts "Guess: #{guess}"
-      puts "Guesses: #{@board.guesses}"
       compare_codes(guess,secret)
+      @board.print_board
+    end
+
+    unless @player_won
+      puts "YOU LOSE"
+      @board.print_secret
+    else
+      puts 'YOU WIN'
+      @board.print_secret
     end
   end
 
@@ -41,9 +45,8 @@ class Game
           feedback << 'black'
         end
       end
-      @board.feedback << feedback
+      @board.feedback << feedback.shuffle
       @player_won = correct_guess?(feedback)
-      puts "Feedback: #{@board.feedback}"
   end
 
   def correct_guess?(guess)

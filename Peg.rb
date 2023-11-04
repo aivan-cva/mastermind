@@ -7,9 +7,9 @@ class Peg
   end
   attr_reader :color
 
-  def peg
+  def peg()
     pastel = Pastel.new()
-    pastel.decorate(@peg,color.to_sym)
+    pastel.decorate(@peg,@color.to_sym)
   end
 
   def to_s
