@@ -1,19 +1,28 @@
 require 'tty-prompt'
+require 'pastel'
 
 class Player
+  pastel = Pastel.new
+  COLORS = ['blue','red','yellow','green','magenta','cyan']
+
   def initialize(role)
     @role = role
-    @colors_picked = []
   end
-  attr_reader :colors_picked
+
 
   def make_code
-    colors = ['blue','red','yellow','green','magenta','cyan']
+    selected_colors = []
     prompt = TTY::Prompt.new
-    @colors_picked = prompt.multi_select('Select 4 pegs', colors, min: 4, max: 4)
+    i = 4
+    4.times do
+      res = prompt.select("Select #{i} more}") do |menu|
+              COLORS.each { |color| menu.choice color }
+            end
+      selected_colors << res
+      i -= 1
+    end
+
+    selected_colors
   end
 
-  def to_s
-    @colors_picked
-  end
 end

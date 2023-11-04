@@ -1,24 +1,18 @@
 require './Peg.rb'
+require 'tty-table'
 
 class Board
-  def initialize(p1,p2)
+  def initialize()
     @secret_code = []
-    @board = []
-    @player_maker = p1
-    @player_breaker = p2
+    @guesses = []
+    @feedback = []
+    @table = TTY::Table.new(["Guesses","Feedback"], [['a','b']])
   end
-  attr_reader :secret_code
+  attr_accessor :secret_code, :guesses, :feedback, :table
 
-  def make_row
-    row = @player_breaker.make_code
-    color_row = row.map do |el|
-                  Peg.new(el).peg
-                end
-    puts color_row
-    color_row
-  end
 
   def print_board
-    puts @board
+    puts @table.render(:ascii)
   end
+
 end

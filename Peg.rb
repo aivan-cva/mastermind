@@ -13,6 +13,6 @@ class Peg
   end
 
   def to_s
-    @color + " " + peg
+    peg
   end
 end
