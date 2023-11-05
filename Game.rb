@@ -1,7 +1,7 @@
 require './Board.rb'
 
 class Game
-  def initialize(player_maker, player_breaker)
+  def initialize(player_maker,player_breaker)
     @player_maker = player_maker
     @player_breaker = player_breaker
     @board = Board.new()
@@ -13,23 +13,25 @@ class Game
     @board.secret_code = secret
 
 
-    2.times do
-      if @player_won
-        return
-      end
+
+    12.times do
+
       guess = @player_breaker.make_code
       @board.guesses << guess
       compare_codes(guess,secret)
       @board.print_board
+      if @player_won
+        puts "WIN"
+        @board.print_secret
+        return
+      end
     end
 
     unless @player_won
-      puts "YOU LOSE"
-      @board.print_secret
-    else
-      puts 'YOU WIN'
+      puts 'LOOSE'
       @board.print_secret
     end
+
   end
 
   def compare_codes(guess, secret)

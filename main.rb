@@ -1,10 +1,26 @@
 require './Game.rb'
-require './Player.rb'
+require './HumanPlayer.rb'
+require './CPUPlayer.rb'
+require 'tty-prompt'
 
 
-maker = Player.new("maker")
-breaker = Player.new('Breaker')
-new_game = Game.new(maker,breaker)
+
+def start_game
+  prompt = TTY::Prompt.new
+  player_choice = prompt.select("Select your role:") do |menu|
+    menu.choice 'Maker'
+    menu.choice "Breaker"
+  end
+
+  if player_choice == 'Maker'
+    new_game = Game.new(HumanPlayer.new,CPUPlayer.new)
+  else
+    new_game = Game.new(CPUPlayer.new,HumanPlayer.new)
+  end
 
 
-new_game.play
+  new_game.play
+end
+
+
+start_game
