@@ -14,7 +14,7 @@ class Game
 
 
 
-    12.times do
+    5.times do
 
       guess = @player_breaker.make_code
       @board.guesses << guess
@@ -40,7 +40,7 @@ class Game
         if secret.include?(color)
           if guess[i] == secret[i]
             feedback << 'white'
-          else
+          elsif secret.count(color) >= guess.count(color)
             feedback << 'red'
           end
         else
@@ -52,7 +52,7 @@ class Game
   end
 
   def correct_guess?(guess)
-    guess.all? {|color| color == 'white'}
+    guess.count('white') == 4
   end
 
 end

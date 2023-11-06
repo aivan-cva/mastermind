@@ -23,4 +23,8 @@ def start_game
 end
 
 
-start_game
+# start_game
+
+
+test_game = Game.new(HumanPlayer.new,HumanPlayer.new)
+test_game.play
